@@ -5,8 +5,9 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Prime {
+public class IsPrime {
 
-	private Integer value;
-
+	public Integer number;
+	
+	public Boolean isPrime;
 }
