@@ -21,6 +21,8 @@ public class PrimeCache {
 	}
 
 	public Integer getNth(int n) {
+		if (primes.size() <= n)
+			return null;
 		return primes.get(n);
 	}
 
@@ -35,14 +37,8 @@ public class PrimeCache {
 		return primes.get(primes.size() - 1);
 	}
 
-	public boolean setNth(int n, Integer nthPrime) {
-		if (n < primes.size())
-			return false;
-		primes.add(n, nthPrime);
-		return true;
-	}
-
 	public synchronized void update(List<Integer> newPrimes) {
+		// TODO make this async
 		int indexOfLast = newPrimes.indexOf(getLast());
 		primes.addAll(indexOfLast != -1 ? 
 				newPrimes.subList(indexOfLast, newPrimes.size()) : 
