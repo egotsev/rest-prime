@@ -26,14 +26,6 @@ public class PrimeCacheTest {
 	}
 
 	@Test
-	public final void testGetNth() {
-		assertEquals("has 2 as initial first value", (Integer) 2, cache.getNth(0));
-		cache.update(Arrays.asList(3));
-		assertEquals("returns correct nth value", (Integer) 3, cache.getNth(1));
-		assertNull("returns null when there's not yet nth value in cache", cache.getNth(2));
-	}
-
-	@Test
 	public final void testIsPrime() {
 		assertTrue("has 2 as initial first value and it is prime", cache.isPrime(2));
 		cache.update(Arrays.asList(3, 5, 7));

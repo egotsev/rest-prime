@@ -1,7 +1,8 @@
 package com.github.egotsev.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PrimeCache {
 
-	private final List<Integer> primes = new ArrayList<>(500);
+	private final SortedSet<Integer> primes = new TreeSet<>();
 
 	{
 		primes.add(2);
@@ -18,12 +19,6 @@ public class PrimeCache {
 	
 	public void parallelForEach(Consumer<Integer> function) {
 		primes.parallelStream().forEach(function::accept);
-	}
-
-	public Integer getNth(int n) {
-		if (primes.size() <= n)
-			return null;
-		return primes.get(n);
 	}
 
 	public Boolean isPrime(int value) {
@@ -34,11 +29,10 @@ public class PrimeCache {
 	}
 
 	public Integer getLast() {
-		return primes.get(primes.size() - 1);
+		return primes.last();
 	}
 
-	public synchronized void update(List<Integer> newPrimes) {
-		// TODO make this async
+	public void update(List<Integer> newPrimes) {
 		int indexOfLast = newPrimes.indexOf(getLast());
 		primes.addAll(indexOfLast != -1 ? 
 				newPrimes.subList(indexOfLast, newPrimes.size()) : 
