@@ -17,6 +17,11 @@ public class PrimeCache {
 		primes.add(2);
 	}
 	
+	public void clear() {
+		primes.clear();
+		primes.add(2);
+	}
+	
 	public void parallelForEach(Consumer<Integer> function) {
 		primes.parallelStream().forEach(function::accept);
 	}

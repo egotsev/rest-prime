@@ -50,5 +50,12 @@ public class PrimeCacheTest {
 		cache.update(Arrays.asList(3, 5));
 		assertEquals("returns only values in the range", Arrays.asList(2), cache.getAllBetween(0, 3));
 	}
+	
+	@Test
+	public final void testClear() {
+		cache.update(Arrays.asList(3, 5, 7));
+		cache.clear();
+		assertEquals((Integer) 2, cache.getLast());
+	}
 
 }
