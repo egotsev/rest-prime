@@ -17,14 +17,14 @@ public abstract class PrimeAlgorithm {
 	}
 	
 	public List<Integer> getAllBetween(int from, int to) {
+		List<Integer> allFromCache = cache.getAllBetween(from, to);
 		if (cache.getLast() >= to) {
-			return cache.getAllBetween(from, to);
+			return allFromCache;
 		}
-		List<Integer> result = calculateAllBetween(cache.getLast() + 1, to);
-		cache.update(result);
-		result = cache.getAllBetween(from, cache.getLast() + 1);
-		result.addAll(result);
-		return result;
+		List<Integer> missingPrimes = calculateAllBetween(cache.getLast() + 1, to);
+		cache.update(missingPrimes);
+		allFromCache.addAll(missingPrimes);
+		return allFromCache;
 	}
 	
 	protected abstract List<Integer> calculateAllBetween(int from, int to);
