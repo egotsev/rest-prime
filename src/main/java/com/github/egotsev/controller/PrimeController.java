@@ -31,6 +31,7 @@ public class PrimeController {
 
 	@RequestMapping("/between/{from}/and/{to}")
 	public List<Integer> getAllBetween(@PathVariable("from") int from, @PathVariable("to") int to) {
+		from = from < 0 ? 0 : from;
 		return algorithmService.get(Eratosthenes.NAME).getAllBetween(from, to);
 	}
 
@@ -38,8 +39,7 @@ public class PrimeController {
 	public IsPrime isPrime(@PathVariable("id") int number) {
 		Boolean isPrime = primeCache.isPrime(number);
 		if (isPrime == null) {
-			Integer nth = algorithmService.get(Eratosthenes.NAME).getNth(number + 1);
-			isPrime = nth.equals(number);
+			isPrime = !algorithmService.get(Eratosthenes.NAME).getAllBetween(number, number + 1).isEmpty();
 		}
 		return new IsPrime(number, isPrime);
 	}
