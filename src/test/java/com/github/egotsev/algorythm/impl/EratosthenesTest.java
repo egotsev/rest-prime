@@ -15,8 +15,8 @@ public class EratosthenesTest {
 	
 	@Test
 	public final void testCalculateAllBetween() {
-		List<Integer> primes = eratosthenes.calculateAllBetween(1, 10);
-		assertEquals(Arrays.asList(2, 3, 5, 7), primes);
+		List<Integer> primes = eratosthenes.calculateAllBetween(1, 30);
+		assertEquals(Arrays.asList(2, 3, 5, 7, 11, 13, 17, 19, 23, 29), primes);
 	}
 
 	@Test(expected = UnsupportedOperationException.class)

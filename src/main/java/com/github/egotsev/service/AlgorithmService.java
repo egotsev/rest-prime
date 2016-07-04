@@ -21,7 +21,7 @@ public class AlgorithmService {
 	
 	@PostConstruct
 	public void init() {
-		// TODO load all algorithms with reflection
+		// TODO load all PrimeAlgorithm implementations with reflection
 		add(new Eratosthenes(cache));
 	}
 	

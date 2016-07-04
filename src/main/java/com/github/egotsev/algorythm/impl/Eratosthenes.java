@@ -28,8 +28,7 @@ public class Eratosthenes extends PrimeAlgorithm {
 		for (int i = 0; i < limit; i++) {
 			if (!primes[i]) {
 				int actualNumber = i + firstNumberToCheck;
-				for (int j = actualNumber * actualNumber
-						- firstNumberToCheck * 2; j < primes.length; j += actualNumber) {
+				for (int j = actualNumber * actualNumber - firstNumberToCheck; j < primes.length; j += actualNumber) {
 					primes[j] = true;
 				}
 			}
