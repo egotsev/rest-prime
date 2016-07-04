@@ -18,7 +18,7 @@ public abstract class PrimeAlgorithm {
 	
 	public List<Integer> getAllBetween(int from, int to) {
 		List<Integer> allFromCache = cache.getAllBetween(from, to);
-		if (cache.getLast() >= to) {
+		if (cache.getLast() >= to - 1) {
 			return allFromCache;
 		}
 		List<Integer> missingPrimes = calculateAllBetween(cache.getLast() + 1, to);
