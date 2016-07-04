@@ -2,6 +2,7 @@ package com.github.egotsev.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -9,10 +10,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class PrimeCache {
 
-	private List<Integer> primes = new ArrayList<>(500);
+	private final List<Integer> primes = new ArrayList<>(500);
 
 	{
 		primes.add(2);
+	}
+	
+	public void parallelForEach(Consumer<Integer> function) {
+		primes.parallelStream().forEach(function::accept);
 	}
 
 	public Integer getNth(int n) {

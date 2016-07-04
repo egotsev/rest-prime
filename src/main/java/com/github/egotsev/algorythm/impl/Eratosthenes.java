@@ -23,14 +23,18 @@ public class Eratosthenes extends PrimeAlgorithm {
 	@Override
 	protected List<Integer> calculateAllBetween(int from, int to) {
 		boolean[] primes = constructBooleanArray(to);
-		for (int i = 2; i < Math.sqrt(to); i++) {
-			if (primes[i]) {
-				for (int j = i * i; j < to; j += i) {
-					primes[j] = false;
+		int firstNumberToCheck = to - primes.length + 1;
+		double limit = Math.sqrt(to) - firstNumberToCheck;
+		for (int i = 0; i < limit; i++) {
+			if (!primes[i]) {
+				int actualNumber = i + firstNumberToCheck;
+				for (int j = actualNumber * actualNumber - firstNumberToCheck * 2; j < primes.length; j += actualNumber) {
+					primes[j] = true;
 				}
 			}
 		}
-		return IntStream.range(from, to).filter(x -> primes[x]).boxed().collect(Collectors.toList());
+		return IntStream.range(from, to).filter(x -> !primes[x - firstNumberToCheck]).boxed()
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -39,10 +43,16 @@ public class Eratosthenes extends PrimeAlgorithm {
 	}
 
 	private boolean[] constructBooleanArray(int n) {
-		boolean[] primes = new boolean[n];
-		for (int i = 0; i < primes.length; i++) {
-			primes[i] = true;
-		}
+		Integer lastPrimeInCache = getCache().getLast();
+		int firstToCheck = lastPrimeInCache + 1;
+		int numbersToCheck = n - lastPrimeInCache;
+		boolean[] primes = new boolean[numbersToCheck];
+		primes[0] = firstToCheck % 2 == 0;
+		getCache().parallelForEach(x -> {
+			for (int i = (firstToCheck / x + 1) * x; i < n; i += x) {
+				primes[i - firstToCheck] = true;
+			}
+		});
 		return primes;
 	}
 }
