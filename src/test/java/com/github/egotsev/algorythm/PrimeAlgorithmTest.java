@@ -41,6 +41,7 @@ public class PrimeAlgorithmTest {
 		assertEquals("Calls abstract calculateAllBetween when the values are not in the cache",
 				Arrays.asList(2, 3, 5, 7), primeAlgorithm.getAllBetween(0, 10));
 		assertEquals("Updates cache", Arrays.asList(2, 3, 5, 7), cache.getAllBetween(0, 10));
+		assertEquals("Get only wanted values when not all are present in cache", Arrays.asList(11, 13), primeAlgorithm.getAllBetween(11, 14));
 	}
 
 }
